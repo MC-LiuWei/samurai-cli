@@ -1,0 +1,43 @@
+{
+    "name": "samurai-cli",
+    "version": "1.0.3",
+    "description": "构建脚本",
+    "bin": {
+        "SamuraiCLI": "bin/samurai-cli.js"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MC-LiuWei/samurai-cli.git"
+    },
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/MC-LiuWei/samurai-cli/issues"
+    },
+    "files": [
+        "src",
+        "bin",
+        "README.md",
+        "LICENSE"
+    ],
+    "homepage": "https://github.com/MC-LiuWei/samurai-cli#readme",
+    "dependencies": {
+        "@types/chalk": "^2.2.0",
+        "@types/commander": "^2.12.2",
+        "@types/inquirer": "^6.5.0",
+        "@types/shelljs": "^0.8.6",
+        "chalk": "^3.0.0",
+        "cli-table3": "^0.5.1",
+        "commander": "^4.1.1",
+        "inquirer": "^7.0.4",
+        "shelljs": "^0.8.3"
+    },
+    "devDependencies": {
+        "@types/node": "^13.7.0",
+        "ts-node": "^8.6.2",
+        "typescript": "^3.7.5"
+    }
+}
