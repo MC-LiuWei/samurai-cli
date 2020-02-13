@@ -1,7 +1,7 @@
 
-import { mkdir } from 'shelljs';
+import { mkdir, touch } from 'shelljs';
 import { redBright } from 'chalk';
-import { join } from 'path';
+import { join, extname } from 'path';
 import { writeFile, writeFileSync, readFileSync, existsSync } from 'fs';
 
 interface IComponentOptions {
@@ -9,38 +9,28 @@ interface IComponentOptions {
     type: "Func" | "Class";
 }
 
-export default async function generate(dir: string, name: string, options: IComponentOptions) {
-    const paths = name.split("/");
-    let componentName: any = paths.pop();
-    const path = join(dir, paths.join("/"));
-    const entranceFile = `${path}/index.${options?.ext}`;
-    componentName = componentName.replace(componentName[0], componentName[0].toUpperCase());
-    if (!existsSync(path)) {
-        mkdir('-p', path);
+export default async function generate(path: string, fileName: string, options?: IComponentOptions) {
+    const ext = extname(fileName);
+    const _filename = fileName.split(".");
+    const name: any = _filename.shift();
+    const pathname = !!ext ? path : join(path, name);
+    const filename = !!ext ? fileName : `${name}.tsx`;
+    const indexFile = join(pathname, 'index.tsx');
+    const componentCode = outComponentFuncCode(name);
+    mkdir('-p', pathname);
+    if (!existsSync(indexFile)) {
+        touch(indexFile);
     }
-    const componentCode = options.type === "Func" ? outComponentFuncCode(componentName) : outComponentClassCode(componentName);
-    // 写入组件代码
-    await writeFileSync(`${path}/${componentName}.${options.ext}`, componentCode, { encoding: "utf8" });
-    // 更新入口文件代码
-    await updateEntrance(entranceFile, componentName);
+    await writeFileSync(join(pathname, filename), componentCode, { encoding: "utf8" });
+    await updateEntrance(indexFile, name);
+    process.exit(0);
 }
 
 async function updateEntrance(path: string, componentName: string) {
-    try {
-        const insertCode = `export { default as ${componentName} } from './${componentName}';`;
-        if (!existsSync(path)) {
-            await writeFileSync(path, insertCode, { encoding: "utf-8" });
-            return true
-        } else {
-            let entranceFileCode = await readFileSync(path, { encoding: "utf-8" });
-            entranceFileCode = `${entranceFileCode}\r${insertCode}`;
-            await writeFileSync(path, entranceFileCode, { encoding: "utf-8" });
-            return true
-        }
-    } catch (error) {
-        console.log(redBright("update entrance error"));
-        process.exit(1);
-    }
+    const insertCode = `export { default as ${componentName} } from './${componentName}';`;
+    let entranceFileCode = await readFileSync(path, { encoding: "utf-8" });
+    entranceFileCode = `${entranceFileCode}\r${insertCode}`;
+    await writeFileSync(path, entranceFileCode, { encoding: "utf-8" });
 }
 
 function outComponentFuncCode(name: string) {

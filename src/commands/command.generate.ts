@@ -1,4 +1,5 @@
 import Table from 'cli-table3';
+import { join } from 'path';
 import { AbstractCommand } from './abstract.command';
 import { CommanderStatic, Command, Option } from 'commander';
 import { Input } from './command.input';
@@ -6,21 +7,26 @@ import examples from '../examples';
 
 export default class GenerateCommand extends AbstractCommand {
   public load(program: CommanderStatic) {
-    program.command('generate <schematic> [name] [path]')
+    program.command('generate <schematic> <name> [path]')
       .alias('g')
       .description(this.buildDesc())
       .option('-d, --dry-run', 'Report actions that would be taken without writing out results.')
       .action(async (
         schematic,
         name,
-        path
+        path,
+        command,
       ) => {
-        console.log('==== schematic ====')
-        console.log(schematic);
-        console.log('==== name ====')
-        console.log(name);
-        console.log('==== path ====')
-        console.log(path);
+        let paths: any = name.split('/');
+        const _schematic = examples.find((item) => item.config.name == schematic || item.config.alias == schematic);
+        const options: Input[] = [];
+        const cwd = process.cwd();
+        const fileName = paths.pop();
+        paths = paths.join("/");
+        options.push({ name: 'name', value: fileName });
+        options.push({ name: 'path', value: !!path ? join(cwd, path, paths) : join(cwd, paths) });
+        options.push({ name: 'dryRun', value: !!command.dryRun })
+        await this.action.handle({ name: 'examples', value: _schematic }, options);
       })
   }
 

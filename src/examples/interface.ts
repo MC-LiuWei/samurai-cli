@@ -5,5 +5,5 @@ export interface IExamplesConfig {
 
 export interface IExamples {
   config: IExamplesConfig,
-  generate: () => any
+  generate: (path: string, name: string, options?: any) => any
 }
