@@ -9,7 +9,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "del:build": "del 'src/**/*.d.ts' 'src/**/*.js' 'src/**/*.map' 'bin/**/*.d.ts' 'bin/**/*.js' 'bin/**/*.map'"
     },
-    "pre-push": [
+    "pre-commit": [
         "del:build"
     ],
     "repository": {
@@ -42,7 +42,7 @@
     "devDependencies": {
         "@types/node": "^13.7.0",
         "del-cli": "^3.0.0",
-        "pre-push": "^0.1.1",
+        "pre-commit": "^1.2.2",
         "ts-node": "^8.6.2",
         "typescript": "^3.7.5"
     }
