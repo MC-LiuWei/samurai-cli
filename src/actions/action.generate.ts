@@ -6,8 +6,13 @@ export default class GenerateAction extends AbstractAction {
 
   public async handle(name: Input, options: Input[]) {
     const examples: IExamples = name.value;
+    const params: any = {};
     const paths = options.find((item) => item.name === 'path')?.value;
     const fileName = options.find((item) => item.name === 'name')?.value;
-    examples.generate(paths, fileName);
+    const isServer = options.find((item) => item.name === 'server')?.value;
+    if (examples.config.alias === "con" && isServer) {
+      params['server'] = isServer;
+    }
+    examples.generate(paths, fileName, params);
   }
 }

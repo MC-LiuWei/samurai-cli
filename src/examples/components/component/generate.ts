@@ -3,6 +3,7 @@ import { mkdir, touch } from 'shelljs';
 import { redBright } from 'chalk';
 import { join, extname } from 'path';
 import { writeFile, writeFileSync, readFileSync, existsSync } from 'fs';
+import { toUpperCase } from '../../../utils/utils';
 
 interface IComponentOptions {
     ext: string;
@@ -13,16 +14,16 @@ export default async function generate(path: string, fileName: string, options?:
     const ext = extname(fileName);
     const _filename = fileName.split(".");
     const name: any = _filename.shift();
-    const pathname = !!ext ? path : join(path, name);
-    const filename = !!ext ? fileName : `${name}.tsx`;
+    const pathname = !!ext ? path : join(path, toUpperCase(name));
+    const filename = !!ext ? toUpperCase(fileName) : `${toUpperCase(name)}.tsx`;
     const indexFile = join(pathname, 'index.tsx');
-    const componentCode = outComponentFuncCode(name);
+    const componentCode = outComponentFuncCode(toUpperCase(name));
     mkdir('-p', pathname);
     if (!existsSync(indexFile)) {
         touch(indexFile);
     }
     await writeFileSync(join(pathname, filename), componentCode, { encoding: "utf8" });
-    await updateEntrance(indexFile, name);
+    await updateEntrance(indexFile, toUpperCase(name));
     process.exit(0);
 }
 

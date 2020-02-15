@@ -1,7 +1,7 @@
 {
     "name": "samurai-cli",
-    "version": "1.0.3",
-    "description": "构建脚本",
+    "version": "1.0.9",
+    "description": "Web application build scripts",
     "bin": {
         "SamuraiCLI": "bin/samurai-cli.js"
     },
@@ -16,7 +16,7 @@
         "type": "git",
         "url": "git+https://github.com/MC-LiuWei/samurai-cli.git"
     },
-    "author": "",
+    "author": "Fred <lemonpaimc@163.com>",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/MC-LiuWei/samurai-cli/issues"

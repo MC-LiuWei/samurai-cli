@@ -3,10 +3,13 @@ import { CommanderStatic } from 'commander';
 import { red } from 'chalk';
 import GenerateCommand from './command.generate';
 import GenerateAction from '../actions/action.generate';
+import NewCommand from './command.new';
+import NewAction from '../actions/action.new';
 
 export class CommandLoader {
     public static load(program: CommanderStatic): void {
         new GenerateCommand(new GenerateAction()).load(program);
+        new NewCommand(new NewAction()).load(program);
     }
 
     private static handleInvalidCommand(program: CommanderStatic) {

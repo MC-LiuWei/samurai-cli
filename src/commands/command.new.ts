@@ -3,32 +3,28 @@ import { join } from 'path';
 import { AbstractCommand } from './abstract.command';
 import { CommanderStatic, Command, Option } from 'commander';
 import { Input } from './command.input';
-import examples from '../examples/components';
+import applications from '../examples/applications';
 
-export default class GenerateCommand extends AbstractCommand {
+export default class NewCommand extends AbstractCommand {
+
   public load(program: CommanderStatic) {
-    program.command('generate <schematic> <name> [path]')
-      .alias('g')
+    program.command('new <schematic> <name>')
+      .alias('n')
       .description(this.buildDesc())
-      .option('-d, --dry-run', 'Report actions that would be taken without writing out results.')
-      .option('-s, --server', 'Is Server')
+      .option('-s, --server', 'Is server render')
       .action(async (
         schematic,
         name,
-        path,
-        command,
+        command
       ) => {
-        let paths: any = name.split('/');
-        const _schematic = examples.find((item) => item.config.name == schematic || item.config.alias == schematic);
+        const project = process.cwd();
+        const application = applications.find((item) => item.config.name === schematic || item.config.alias === schematic);
         const options: Input[] = [];
-        const cwd = process.cwd();
-        const fileName = paths.pop();
-        paths = paths.join("/");
-        options.push({ name: 'name', value: fileName });
-        options.push({ name: 'path', value: !!path ? join(cwd, path, paths) : join(cwd, paths) });
-        options.push({ name: 'dryRun', value: !!command.dryRun });
         options.push({ name: 'server', value: !!command.server });
-        await this.action.handle({ name: 'examples', value: _schematic }, options);
+        options.push({ name: 'name', value: name });
+        options.push({ name: 'path', value: project });
+
+        await this.action.handle({ name: 'application', value: application }, options);
       })
   }
 
@@ -56,7 +52,7 @@ export default class GenerateCommand extends AbstractCommand {
     };
     const table: any = new Table(tableConfig);
 
-    for (const schematic of examples) {
+    for (const schematic of applications) {
       table.push([schematic.config.name, schematic.config.alias]);
     }
     return table.toString();
