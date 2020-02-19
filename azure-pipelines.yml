@@ -6,23 +6,14 @@
 trigger:
   - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+jobs:
 
-steps:
-
-  - script: |
-      npm install && tsc
-    displayName: 'build'
-  - task: npmAuthenticate@0
-    displayName: "auth"
-    inputs:
-      workingFile: .npmrc
-      customEndpoint: "npm"
-  - task: Npm@0
-    displayName: 'publish'
-    inputs:
-      command: "publish"
-      publishRegistry: 'useExternalRegistry'
-      publishPackageMetadata: true
-      publishEndpoint: "npm"
+- job: publish_package
+  displayName: publish package
+  condition: and(succeeded(), ne(variables['build.reason'], 'PullRequest'), eq(variables.os, 'Linux'))
+  pool:
+    vmImage: 'ubuntu-latest'
+  steps:
+    - template: ci/publish.yml
+      parameters:
+        os: Linux
