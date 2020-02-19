@@ -14,6 +14,11 @@ steps:
   - script: |
       npm install && tsc
     displayName: 'build'
+  - task: npmAuthenticate@0
+    displayName: "auth"
+    inputs:
+      workingFile: .npmrc
+      customEndpoint: "npm"
   - task: Npm@0
     displayName: 'publish'
     inputs:
