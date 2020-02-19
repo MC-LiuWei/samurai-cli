@@ -10,7 +10,6 @@ jobs:
 
 - job: publish_package
   displayName: publish package
-  # condition: and(succeeded(), ne(variables['build.reason'], 'PullRequest'), eq(variables.os, 'Linux'))
   pool:
     vmImage: 'ubuntu-latest'
   steps:
