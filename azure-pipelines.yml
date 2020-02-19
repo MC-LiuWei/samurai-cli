@@ -14,8 +14,8 @@ steps:
   - script: |
       npm install && tsc
     displayName: 'build'
-  - task: Npm@1
-    displayName: 'start server'
+  - task: Npm@0
+    displayName: 'publish'
     inputs:
       command: "publish"
       publishPackageMetadata: true
