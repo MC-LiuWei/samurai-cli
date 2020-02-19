@@ -52,7 +52,7 @@ function outComponentFuncCode(name: string, server: boolean) {
       };
       export default connectView;
         `:
-      "export default connect(mapStateToProps, mapDispatchToProps)(${name});"
+      `export default connect(mapStateToProps, mapDispatchToProps)(${name});`
     }
   `
 }
