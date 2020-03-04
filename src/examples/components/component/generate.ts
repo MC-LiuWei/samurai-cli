@@ -15,15 +15,21 @@ export default async function generate(path: string, fileName: string, options?:
     const _filename = fileName.split(".");
     const name: any = _filename.shift();
     const pathname = !!ext ? path : join(path, toUpperCase(name));
+    const stylespath = join(pathname, 'styles');
     const filename = !!ext ? toUpperCase(fileName) : `${toUpperCase(name)}.tsx`;
     const indexFile = join(pathname, 'index.tsx');
+    const styleFile = join(stylespath, `${toUpperCase(name)}.styles.ts`);
+    const indexStyleFile = join(stylespath, `index.ts`);
     const componentCode = outComponentFuncCode(toUpperCase(name));
     mkdir('-p', pathname);
+    mkdir('-p', stylespath);
     if (!existsSync(indexFile)) {
         touch(indexFile);
     }
     await writeFileSync(join(pathname, filename), componentCode, { encoding: "utf8" });
+    await touch(styleFile);
     await updateEntrance(indexFile, toUpperCase(name));
+    await updateStylesEntrance(indexStyleFile, toUpperCase(name));
     process.exit(0);
 }
 
@@ -32,6 +38,13 @@ async function updateEntrance(path: string, componentName: string) {
     let entranceFileCode = await readFileSync(path, { encoding: "utf-8" });
     entranceFileCode = `${entranceFileCode}\r${insertCode}`;
     await writeFileSync(path, entranceFileCode, { encoding: "utf-8" });
+}
+
+async function updateStylesEntrance(path: string, styleName: string) {
+    const insertCode = `export { default as ${styleName}Style } from './${styleName}.styles.ts';`;
+    let entranceFileCode = await readFileSync(path, { encoding: "utf-8" });
+    entranceFileCode = `${entranceFileCode}\r${insertCode}`;
+    await writeFileSync(path, entranceFileCode, { encoding: 'utf-8' });
 }
 
 function outComponentFuncCode(name: string) {
