@@ -1,6 +1,6 @@
 
 import { mkdir, touch } from 'shelljs';
-import { redBright } from 'chalk';
+import { greenBright, whiteBright } from 'chalk';
 import { join, extname } from 'path';
 import { writeFile, writeFileSync, readFileSync, existsSync } from 'fs';
 import { toUpperCase } from '../../../utils/utils';
@@ -22,11 +22,14 @@ export default async function generate(path: string, fileName: string, options?:
     const indexStyleFile = join(stylespath, `index.ts`);
     const componentCode = outComponentFuncCode(toUpperCase(name));
     mkdir('-p', pathname);
+    console.log(greenBright('[CREATE DIR]: '), whiteBright(pathname));
     mkdir('-p', stylespath);
+    console.log(greenBright('[CREATE DIR]: '), whiteBright(stylespath));
     if (!existsSync(indexFile)) {
         touch(indexFile);
     }
     await writeFileSync(join(pathname, filename), componentCode, { encoding: "utf8" });
+    console.log(greenBright('[CREATE COMPONENT FILE]: '), whiteBright(join(pathname, filename)));
     await touch(styleFile);
     await updateEntrance(indexFile, toUpperCase(name));
     await updateStylesEntrance(indexStyleFile, toUpperCase(name));
