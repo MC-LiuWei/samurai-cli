@@ -83,7 +83,6 @@ typings/
 dist
 *.d.ts
 *.map
-*.js
 
 # Gatsby files
 .cache/
