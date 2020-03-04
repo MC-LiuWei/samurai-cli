@@ -25,9 +25,6 @@ export default async function generate(path: string, fileName: string, options?:
     console.log(greenBright('[CREATE DIR]: '), whiteBright(pathname));
     mkdir('-p', stylespath);
     console.log(greenBright('[CREATE DIR]: '), whiteBright(stylespath));
-    if (!existsSync(indexFile)) {
-        touch(indexFile);
-    }
     await writeFileSync(join(pathname, filename), componentCode, { encoding: "utf8" });
     console.log(greenBright('[CREATE COMPONENT FILE]: '), whiteBright(join(pathname, filename)));
     await touch(styleFile);
@@ -37,6 +34,9 @@ export default async function generate(path: string, fileName: string, options?:
 }
 
 async function updateEntrance(path: string, componentName: string) {
+    if (!existsSync(path)) {
+        touch(path);
+    }
     const insertCode = `export { default as ${componentName} } from './${componentName}';`;
     let entranceFileCode = await readFileSync(path, { encoding: "utf-8" });
     entranceFileCode = `${entranceFileCode}\r${insertCode}`;
@@ -44,6 +44,9 @@ async function updateEntrance(path: string, componentName: string) {
 }
 
 async function updateStylesEntrance(path: string, styleName: string) {
+    if (!existsSync(path)) {
+        touch(path);
+    }
     const insertCode = `export { default as ${styleName}Style } from './${styleName}.styles.ts';`;
     let entranceFileCode = await readFileSync(path, { encoding: "utf-8" });
     entranceFileCode = `${entranceFileCode}\r${insertCode}`;
