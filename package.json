@@ -7,7 +7,8 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "del:build": "del 'src/**/*.d.ts' 'src/**/*.js' 'src/**/*.map' 'bin/**/*.d.ts' 'bin/**/*.js' 'bin/**/*.map'"
+        "del:build": "del 'src/**/*.d.ts' 'src/**/*.js' 'src/**/*.map' 'bin/**/*.d.ts' 'bin/**/*.js' 'bin/**/*.map'",
+        "update:version": "node ./scripts/update-version.js"
     },
     "pre-commit": [
         "del:build"

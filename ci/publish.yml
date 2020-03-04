@@ -9,6 +9,9 @@ steps:
 - script: tsc
   displayName: build
 
+- script: npm run update:version
+  displayName: update version
+
 - task: npmAuthenticate@0
   displayName: "auth"
   inputs:
