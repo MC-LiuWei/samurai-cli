@@ -1,6 +1,6 @@
 {
     "name": "samurai-cli",
-    "version": "1.1.5",
+    "version": "1.1.6",
     "description": "Web application build scripts",
     "bin": {
         "SamuraiCLI": "bin/samurai-cli.js"
@@ -11,7 +11,8 @@
         "update:version": "node ./scripts/update-version.js"
     },
     "pre-commit": [
-        "del:build"
+        "del:build",
+        "update:version"
     ],
     "repository": {
         "type": "git",
