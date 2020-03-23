@@ -1,6 +1,6 @@
 {
     "name": "samurai-cli",
-    "version": "2.1.16",
+    "version": "2.1.17",
     "description": "Web application build scripts",
     "bin": {
         "SamuraiCLI": "bin/samurai-cli.js"
