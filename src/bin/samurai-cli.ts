@@ -7,7 +7,7 @@ import { CommandLoader } from '../commands/command.loader';
 function main() {
     const program: CommanderStatic = commander;
 
-    program.version(require("../package.json").version, '-v, --version',
+    program.version(require("../../package.json").version, '-v, --version',
         'Output the current version.')
         .usage('<command>')
         .helpOption('-h, --help', 'Output usage information.');
