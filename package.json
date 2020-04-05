@@ -1,9 +1,9 @@
 {
     "name": "samurai-cli",
-    "version": "2.1.22",
+    "version": "2.1.23",
     "description": "Web application build scripts",
     "bin": {
-        "SamuraiCLI": "lib/bin/samurai-cli.js"
+        "SamuraiCLI": "src/bin/samurai-cli.js"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +18,7 @@
         "url": "https://github.com/MC-LiuWei/samurai-cli/issues"
     },
     "files": [
-        "lib",
+        "src",
         "README.md",
         "LICENSE"
     ],

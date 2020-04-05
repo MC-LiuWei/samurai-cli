@@ -82,7 +82,8 @@ typings/
 .nuxt
 dist
 *.d.ts
-*.map
+*.js
+*.ts.map
 
 # Gatsby files
 .cache/
@@ -104,5 +105,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-lib
