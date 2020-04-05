@@ -1,19 +1,13 @@
 {
     "name": "samurai-cli",
-    "version": "2.1.17",
+    "version": "2.1.20",
     "description": "Web application build scripts",
     "bin": {
-        "SamuraiCLI": "bin/samurai-cli.js"
+        "SamuraiCLI": "lib/bin/samurai-cli.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "del:build": "del 'src/**/*.d.ts' 'src/**/*.js' 'src/**/*.map' 'bin/**/*.d.ts' 'bin/**/*.js' 'bin/**/*.map'",
-        "update:version": "node ./scripts/update-version.js"
+        "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "pre-commit": [
-        "del:build",
-        "update:version"
-    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/MC-LiuWei/samurai-cli.git"
@@ -24,8 +18,7 @@
         "url": "https://github.com/MC-LiuWei/samurai-cli/issues"
     },
     "files": [
-        "src",
-        "bin",
+        "lib",
         "README.md",
         "LICENSE"
     ],
