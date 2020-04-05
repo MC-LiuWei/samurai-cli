@@ -82,7 +82,6 @@ typings/
 .nuxt
 dist
 *.d.ts
-*.js
 *.ts.map
 
 # Gatsby files
