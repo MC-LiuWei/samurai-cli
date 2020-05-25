@@ -5,6 +5,7 @@
     "declaration": true, /* Generates corresponding '.d.ts' file. */
     "declarationMap": true, /* Generates a sourcemap for each corresponding '.d.ts' file. */
     "allowJs": true,
+    "outDir": "lib",
     "resolveJsonModule": true,  
     "strict": true, /* Enable all strict type-checking options. */
     "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
@@ -12,8 +13,8 @@
   },
   "exclude": ["node_modules"],
   "include": [
-    "**/*.ts",
-    "**/*.json",
-    "**/*.gitignore"
+    "src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.gitignore"
   ]
 }

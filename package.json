@@ -3,10 +3,11 @@
     "version": "2.1.24",
     "description": "Web application build scripts",
     "bin": {
-        "SamuraiCLI": "src/bin/samurai-cli.js"
+        "SamuraiCLI": "lib/bin/samurai-cli.js"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "del": "del src/**/*.d.ts src/**/*.d.ts.map"
     },
     "repository": {
         "type": "git",
@@ -18,7 +19,7 @@
         "url": "https://github.com/MC-LiuWei/samurai-cli/issues"
     },
     "files": [
-        "src",
+        "lib",
         "README.md",
         "LICENSE"
     ],
@@ -27,11 +28,15 @@
         "@types/chalk": "^2.2.0",
         "@types/commander": "^2.12.2",
         "@types/inquirer": "^6.5.0",
+        "@types/node-emoji": "^1.8.1",
+        "@types/ora": "^3.2.0",
         "@types/shelljs": "^0.8.6",
         "chalk": "^3.0.0",
         "cli-table3": "^0.5.1",
         "commander": "^4.1.1",
-        "inquirer": "^7.0.4",
+        "inquirer": "^7.1.0",
+        "node-emoji": "^1.10.0",
+        "ora": "^4.0.3",
         "shelljs": "^0.8.3"
     },
     "devDependencies": {

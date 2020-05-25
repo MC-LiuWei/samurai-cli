@@ -1,10 +1,18 @@
+/*
+ * @Author: your name
+ * @Date: 2020-03-10 15:20:40
+ * @LastEditTime: 2020-04-09 13:19:34
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /samurai-cli/src/actions/action.generate.ts
+ */
 import { AbstractAction } from "./abstract.action";
 import { Input } from "../commands/command.input";
 import { IExamples } from '../examples/interface';
 
 export default class GenerateAction extends AbstractAction {
 
-  public async handle(name: Input, options: Input[]) {
+  public async handle(inputs: Input[], options: Input[]) {
     const examples: IExamples = name.value;
     const params: any = {};
     const paths = options.find((item) => item.name === 'path')?.value;
