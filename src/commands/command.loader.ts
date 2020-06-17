@@ -1,27 +1,27 @@
-import { AbstractCommand } from './abstract.command';
-import { CommanderStatic } from 'commander';
-import { red } from 'chalk';
-import GenerateCommand from './command.generate';
-import GenerateAction from '../actions/action.generate';
-import NewCommand from './command.new';
-import NewAction from '../actions/action.new';
+/*
+ * @Author: 刘伟
+ * @Date: 2020-03-10 15:20:40
+ * @LastEditors: 刘伟
+ * @LastEditTime: 2020-06-13 17:35:08
+ * @Description: Do not edit
+ * @FilePath: /samurai-cli/src/commands/command.loader.ts
+ */
+import { CommanderStatic } from "commander";
+import { red } from "chalk";
+import { PackageCommand, CreateCommand } from ".";
+import { PackageAction, CreateAction } from "../actions";
 
 export class CommandLoader {
-    public static load(program: CommanderStatic): void {
-        new GenerateCommand(new GenerateAction()).load(program);
-        new NewCommand(new NewAction()).load(program);
-    }
+  public static load(program: CommanderStatic): void {
+    new PackageCommand(new PackageAction()).load(program);
+    new CreateCommand(new CreateAction()).load(program);
+  }
 
-    private static handleInvalidCommand(program: CommanderStatic) {
-        program.on('command:*', () => {
-            console.error(
-                `\nInvalid command: ${red('%s')}`,
-                program.args.join(' '),
-            );
-            console.log(
-                `See ${red('--help')} for a list of available commands.\n`,
-            );
-            process.exit(1);
-        });
-    }
+  private static handleInvalidCommand(program: CommanderStatic) {
+    program.on("command:*", () => {
+      console.error(`\nInvalid command: ${red("%s")}`, program.args.join(" "));
+      console.log(`See ${red("--help")} for a list of available commands.\n`);
+      process.exit(1);
+    });
+  }
 }
