@@ -13,6 +13,6 @@ jobs:
   pool:
     vmImage: 'ubuntu-latest'
   steps:
-    - template: ci/publish.yml
+    - template: azure-pipelines/publish.yml
       parameters:
         os: Linux
