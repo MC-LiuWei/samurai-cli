@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:36:44
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-17 19:44:10
+ * @LastEditTime: 2020-06-17 22:44:23
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/commands/command.compile.ts
  */
@@ -16,12 +16,17 @@ export class CompileCommand extends AbstractCommand {
       .command("compile <task>")
       .alias("cpe")
       .description("")
+      .options("-p, --path [outpath]")
       .action(async (task: string, command: Command) => {
         const options: Input[] = [];
         const inputs: Input[] = [];
         inputs.push({
           name: "task",
           value: task,
+        });
+        options.push({
+          name: "outpath",
+          value: !!command.outpath ? command.outpath : "components",
         });
         await this.action.handle(inputs, options);
       });

@@ -36,6 +36,7 @@
     "@types/node-emoji": "^1.8.1",
     "@types/ora": "^3.2.0",
     "@types/shelljs": "^0.8.6",
+    "@types/through2": "^2.0.36",
     "chalk": "^3.0.0",
     "cli-table3": "^0.5.1",
     "commander": "^4.1.1",
@@ -44,7 +45,8 @@
     "node-emoji": "^1.10.0",
     "ora": "^4.0.3",
     "samurai-schematic": "^1.1.4",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "through2": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "^13.7.0",
