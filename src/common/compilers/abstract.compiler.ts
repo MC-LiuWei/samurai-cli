@@ -2,16 +2,15 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:49:34
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-17 23:56:25
+ * @LastEditTime: 2020-06-18 20:53:03
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/compilers/abstract.compiler.ts
  */
 import gulp from "gulp";
-import { AbstractRunner } from "../runners/abstract.runner";
 import { CompilersOptions } from ".";
 
 export class AbstractCompiler {
-  constructor(protected runner: AbstractRunner) {}
+  constructor(protected runner: string) {}
 
   public async compiler(
     name: string,
