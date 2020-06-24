@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-12 23:30:21
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 14:26:31
+ * @LastEditTime: 2020-06-24 16:57:12
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/ui/message.ts
  */
@@ -24,6 +24,6 @@ export default {
     )}`;
   },
   packageVersionSuccess: `${EMOJI.WHITE_CHECK_MARK} ${greenBright(
-    "Version verification passed"
+    "[SUCCESS] Version verification passed"
   )}`,
 };
