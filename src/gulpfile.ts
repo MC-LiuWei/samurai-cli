@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 20:09:33
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 09:56:45
+ * @LastEditTime: 2020-06-24 14:22:16
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/gulpfile.ts
  */
@@ -26,7 +26,7 @@ gulp.task("markdown", (cb) => {
 });
 
 gulp.task("ui:doc", (cb) => {
-  gulp.src("components").pipe();
+  // gulp.src("components").pipe();
 });
 
 gulp.task("library:ui", gulp.series([""]));

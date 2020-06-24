@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-11 16:58:08
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-13 17:08:11
+ * @LastEditTime: 2020-06-24 14:24:56
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/actions/action.package.ts
  */
@@ -49,8 +49,11 @@ export class PackageAction extends AbstractAction {
     if (checkVersion) {
       const versions = this.getVersion(packageInfo?.value.name);
       if (versions.find((ver) => ver == packageInfo?.value.version)) {
-        console.log(message.packageVersionError);
+        console.log(message.packageVersionError(versions.pop() as string));
         process.exit(1);
+      } else {
+        console.log(message.packageVersionSuccess);
+        process.exit(0);
       }
     }
   }
