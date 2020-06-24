@@ -6,6 +6,6 @@
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/compilers/compilers.options.ts
  */
-export class CompilersOptions {
+export class RunnersOption {
   constructor(private name: string, private value: string | boolean) {}
 }

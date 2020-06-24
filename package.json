@@ -44,7 +44,7 @@
     "inquirer": "^7.1.0",
     "node-emoji": "^1.10.0",
     "ora": "^4.0.3",
-    "samurai-schematic": "^1.1.4",
+    "samurai-schematic": "^1.1.6",
     "shelljs": "^0.8.4",
     "through2": "^3.0.1"
   },

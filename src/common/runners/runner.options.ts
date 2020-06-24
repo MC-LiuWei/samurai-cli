@@ -1,14 +1,14 @@
 /*
  * @Author: 刘伟
- * @Date: 2020-06-13 14:00:41
+ * @Date: 2020-06-22 13:08:02
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-13 14:00:42
+ * @LastEditTime: 2020-06-22 13:08:27
  * @Description: Do not edit
- * @FilePath: /samurai-cli/src/common/schematics-managers/schematics.options.ts
+ * @FilePath: /samurai-cli/src/common/runners/Runner.options.ts
  */
 import { strings } from "@angular-devkit/core";
 
-export class SchematicOption {
+export class RunnersOption {
   constructor(private name: string, private value: boolean | string) {}
 
   public toCommandString(): string {

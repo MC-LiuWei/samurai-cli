@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-13 17:33:16
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-14 00:17:23
+ * @LastEditTime: 2020-06-22 13:13:41
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/actions/action.create.ts
  */
@@ -12,8 +12,8 @@ import message from "../common/ui/message";
 import {
   AbstractSchematicsManager,
   SchematicsManagerFactory,
-  SchematicOption,
 } from "../common/schematics-managers";
+import { RunnersOption } from "../common/runners";
 
 export class CreateAction extends AbstractAction {
   public async handle(inputs: Input[], options: Input[]) {
@@ -27,13 +27,13 @@ async function generatePackageFiles(inputs: Input[]) {
   const collection: AbstractSchematicsManager = SchematicsManagerFactory.create(
     collectionOption
   );
-  const schematicOptions: SchematicOption[] = mapSchematicOptions(inputs);
+  const RunnersOptions: RunnersOption[] = mapRunnersOptions(inputs);
   try {
     const schematicInput = inputs.find((input) => input.name === "schematic");
     if (!schematicInput) {
       throw new Error("Unable to find a schematic for this configuration");
     }
-    await collection.execute(schematicInput.value as string, schematicOptions);
+    await collection.execute(schematicInput.value as string, RunnersOptions);
   } catch (error) {
     if (error && error.message) {
       //   console.error(chalk.red(error.message));
@@ -41,12 +41,12 @@ async function generatePackageFiles(inputs: Input[]) {
   }
 }
 
-const mapSchematicOptions = (inputs: Input[]): SchematicOption[] => {
+const mapRunnersOptions = (inputs: Input[]): RunnersOption[] => {
   const excludedInputNames = ["schematic", "collection"];
-  const options: SchematicOption[] = [];
+  const options: RunnersOption[] = [];
   inputs.forEach((input) => {
     if (!excludedInputNames.includes(input.name) && input.value !== undefined) {
-      options.push(new SchematicOption(input.name, input.value));
+      options.push(new RunnersOption(input.name, input.value));
     }
   });
   return options;

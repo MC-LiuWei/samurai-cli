@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-12 23:30:21
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-13 14:27:10
+ * @LastEditTime: 2020-06-24 09:39:42
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/ui/message.ts
  */
@@ -15,5 +15,10 @@ export default {
   )}`,
   runnerFactoryError: (runner: string) => {
     return yellow(`[WARN] Unsupported runner: ${runner}`);
+  },
+  notFileError: (filename: string) => {
+    return `${EMOJI.RED_CIRCLE} ${redBright(
+      `[ERROR] No file ${filename} found`
+    )}`;
   },
 };
