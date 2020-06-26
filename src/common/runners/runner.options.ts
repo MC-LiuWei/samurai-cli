@@ -2,14 +2,22 @@
  * @Author: 刘伟
  * @Date: 2020-06-22 13:08:02
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-22 13:08:27
+ * @LastEditTime: 2020-06-26 20:30:59
  * @Description: Do not edit
- * @FilePath: /samurai-cli/src/common/runners/Runner.options.ts
+ * @FilePath: /samurai-cli/src/common/runners/runner.options.ts
  */
 import { strings } from "@angular-devkit/core";
 
 export class RunnersOption {
   constructor(private name: string, private value: boolean | string) {}
+
+  public getName(): string {
+    return this.name;
+  }
+
+  public getValue(): string | boolean {
+    return this.value;
+  }
 
   public toCommandString(): string {
     if (typeof this.value === "string") {

@@ -4,7 +4,6 @@ import { CommandLoader } from "../commands";
 
 function main() {
   const program: CommanderStatic = commander;
-
   program
     .version(
       require("../../package.json").version,
@@ -16,7 +15,7 @@ function main() {
 
   CommandLoader.load(program);
   commander.parse(process.argv);
-  if (!program.args.length) {
+  if (!process.argv.slice(2).length) {
     program.outputHelp();
     process.exit(1);
   }

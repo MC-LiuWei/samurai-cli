@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-13 13:44:02
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-23 23:04:14
+ * @LastEditTime: 2020-06-26 19:06:41
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/runners/abstract.runner.ts
  */
@@ -14,6 +14,7 @@ export class AbstractRunner {
   constructor(protected binary: string) {}
 
   private transformCommandMessage(message: string) {
+    console.log("message", message);
     return message.replace(/\r\n|\n/, "");
   }
 
@@ -28,7 +29,6 @@ export class AbstractRunner {
       stdio: collect ? "pipe" : "inherit",
       shell: true,
     };
-    console.log(command);
     return new Promise<null | string>((resolve, rejects) => {
       const child: ChildProcess = spawn(`${this.binary}`, args, options);
       if (collect) {

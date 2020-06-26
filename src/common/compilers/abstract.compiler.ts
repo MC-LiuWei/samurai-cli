@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:49:34
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 18:51:10
+ * @LastEditTime: 2020-06-26 22:49:25
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/compilers/abstract.compiler.ts
  */
@@ -15,11 +15,10 @@ export class AbstractCompiler {
   constructor(protected compiler: string, protected runner: AbstractRunner) {}
 
   public async execute(options: RunnersOption[], extraFlags?: string) {
-    const metadata = { task: this.compiler };
-    const path = process.cwd();
     let command = this.buildCommandLine(options);
     command = extraFlags ? command.concat(` ${extraFlags}`) : command;
-    await this.runner.run(command);
+    console.log(command);
+    return await this.runner.run(command);
   }
 
   protected findCompilerFilePath(

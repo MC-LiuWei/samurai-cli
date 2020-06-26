@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-18 20:45:23
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 18:56:20
+ * @LastEditTime: 2020-06-24 21:46:50
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/compilers/compilers.factory.ts
  */
@@ -12,7 +12,6 @@ import { RunnerFactory, Runner, GulpRunner } from "../runners";
 
 export class CompilersFactory {
   public static create(compiler: Compiler | string) {
-    console.log("com", compiler);
     switch (compiler) {
       case Compiler.MARKDOWN:
         return new MarkdownCompiler(

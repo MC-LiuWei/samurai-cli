@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-20 11:58:22
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 09:51:39
+ * @LastEditTime: 2020-06-26 19:07:55
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/compilers/markdown.compiler.ts
  */
@@ -30,7 +30,7 @@ export class MarkdownCompiler extends AbstractCompiler {
       const compilerOption = new RunnersOption("gulpfile", compilerFile);
       options.push(compilerOption);
     }
-    super.execute(options, " --silent");
+    return super.execute(options, " --silent");
   }
 
   // private findCompilerFilePath(

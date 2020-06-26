@@ -2,11 +2,12 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:44:34
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 19:13:27
+ * @LastEditTime: 2020-06-26 20:09:49
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/actions/action.compile.ts
  */
 import { readFileSync, existsSync } from "fs";
+import { join } from "path";
 import { AbstractAction } from ".";
 import { Input } from "../commands";
 import { CompilersFactory, Compiler } from "../common/compilers";
@@ -21,28 +22,41 @@ export class CompileAction extends AbstractAction {
 }
 
 async function compilePackageFiles(inputs: Input[]) {
-  // const compilerTask = inputs.find((input) => input.name == "task")
-  // const compilerJsonFilePath = inputs.find((input) => input.name == "config")
   const config = conversionCompilerConfig(inputs);
-  const options = mapRunnersOption(inputs);
+  const options = mapRunnersOption(inputs).concat(
+    mapConfigRunnerOptions(config)
+  );
   const compiler = CompilersFactory.create(config.schematic);
   compiler?.execute(options);
 }
 
 const conversionCompilerConfig = (inputs: Input[]): ConfigFile => {
-  const filePath = inputs.find((input) => input.name == "config")
+  const fileName = inputs.find((input) => input.name == "config")
     ?.value as string;
+  const filePath = join(process.cwd(), fileName);
   if (existsSync(filePath)) {
     const jsonCode = readFileSync(filePath, { encoding: "utf8" });
     return JSON.parse(jsonCode);
   } else {
-    console.log(message.notFileError("samurai.json"));
+    console.log(message.notFileError(fileName));
     process.exit(1);
   }
 };
 
+const mapConfigRunnerOptions = (config: object = {}): RunnersOption[] => {
+  const excludedInputNames = ["schematic", "packageManager"];
+  const entries = Object.entries(config);
+  const options: RunnersOption[] = [];
+  entries.forEach((etr) => {
+    if (!excludedInputNames.includes(etr[0]) && etr[1] !== undefined) {
+      options.push(new RunnersOption(etr[0], etr[1]));
+    }
+  });
+  return options;
+};
+
 const mapRunnersOption = (inputs: Input[]): RunnersOption[] => {
-  const excludedInputNames = ["task", "config"];
+  const excludedInputNames = ["config"];
   const options: RunnersOption[] = [];
   inputs.forEach((input) => {
     if (!excludedInputNames.includes(input.name) && input.value !== undefined) {
