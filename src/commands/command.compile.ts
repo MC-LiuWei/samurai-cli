@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:36:44
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-26 20:33:41
+ * @LastEditTime: 2020-06-29 13:40:01
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/commands/command.compile.ts
  */
@@ -29,6 +29,10 @@ export class CompileCommand extends AbstractCommand {
         options.push({
           name: "config",
           value: !!command.config ? command.config : "samurai.json",
+        });
+        options.push({
+          name: "rootPath",
+          value: process.cwd(),
         });
         await this.action.handle(inputs, options);
       });

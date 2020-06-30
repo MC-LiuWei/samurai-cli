@@ -2,16 +2,15 @@
  * @Author: 刘伟
  * @Date: 2020-06-11 16:58:08
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-24 14:24:56
+ * @LastEditTime: 2020-06-28 14:05:34
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/actions/action.package.ts
  */
-// import inquirer, { Answers, Question } from "inquirer";
-import ora from "ora";
 import { execSync } from "child_process";
 import { AbstractAction } from ".";
 import { Input } from "../commands";
 import message from "../common/ui/message";
+import { runnerLoading } from "../common/ui/loading";
 
 export class PackageAction extends AbstractAction {
   /**
@@ -25,13 +24,7 @@ export class PackageAction extends AbstractAction {
    */
   private getVersion(pkgName: string): string[] {
     try {
-      const loading = ora({
-        spinner: {
-          interval: 10,
-          frames: ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
-        },
-        text: "Check version...",
-      });
+      const loading = runnerLoading("package版本检查");
       loading.start();
       const versions = execSync(
         `npm view ${pkgName} versions --json`

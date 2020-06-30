@@ -1,29 +1,29 @@
 /*
  * @Author: 刘伟
- * @Date: 2020-06-25 01:37:14
+ * @Date: 2020-06-27 16:05:58
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-25 01:42:12
+ * @LastEditTime: 2020-06-27 16:06:08
  * @Description: Do not edit
- * @FilePath: /samurai-cli/src/common/compilers/transverter/reactCodeMdTemp.js
+ * @FilePath: /samurai-cli/src/common/compilers/transverter/components/template/react/componentsMdTemplate.js
  */
-import os from "os";
-import { template, type } from "react-docgen-renderer-template";
+const os = require("os");
+const { template, type } = require("react-docgen-renderer-template");
 
 const generatePropsTable = (props, getType) => {
   const entries = Object.entries(props);
   if (entries.length === 0) return "This component does not have any props.";
 
   let propsTableHeader = `prop | type | default | required | description
-  ---- | :----: | :-------: | :--------: | -----------
-  `;
+---- | :----: | :-------: | :--------: | -----------
+`;
   return (
     propsTableHeader +
     entries
       .map(
         ([propName, propValue]) =>
-          `**${propName}** | \`${getType(propValue.flowType)}\` | ${
+          `**${propName}** | \`${getType(propValue.type)}\` | ${
             propValue.defaultValue ? `\`${propValue.defaultValue}\`` : ""
-          } | ${propValue.required ? ":white_check_mark:" : ":x:"} | ${
+          } | ${propValue.required ? true : false} | ${
             propValue.description ? propValue.description : ""
           }`
       )
@@ -44,27 +44,27 @@ const templateCreator = template({
   symbol: "Symbol",
   any: "*",
   custom: type`${({ context }) =>
-    context.flowType.raw.includes("function(")
+    context.type.raw.includes("function(")
       ? "(custom validator)"
-      : context.flowType.raw}`,
+      : context.type.raw}`,
   shape: "Shape",
   arrayOf: type`Array[]<${({ context, getType }) =>
-    context.flowType.value.raw
-      ? context.flowType.value.raw
-      : getType(context.flowType.value)}>`,
+    context.type.value.raw
+      ? context.type.value.raw
+      : getType(context.type.value)}>`,
   objectOf: type`Object[#]<${({ context, getType }) =>
-    context.flowType.value.raw
-      ? context.flowType.value.raw
-      : getType(context.flowType.value)}>`,
-  instanceOf: type`${({ context }) => context.flowType.value}`,
+    context.type.value.raw
+      ? context.type.value.raw
+      : getType(context.type.value)}>`,
+  instanceOf: type`${({ context }) => context.type.value}`,
   enum: type`Enum(${({ context, getType }) =>
-    context.flowType.computed
-      ? context.flowType.value
-      : context.flowType.value.map((value) => getType(value)).join(", ")})`,
+    context.type.computed
+      ? context.type.value
+      : context.type.value.map((value) => getType(value)).join(", ")})`,
   union: type`Union<${({ context, getType }) =>
-    context.flowType.computed
-      ? context.flowType.value
-      : context.flowType.value
+    context.type.computed
+      ? context.type.value
+      : context.type.value
           .map((value) => (value.raw ? value.raw : getType(value)))
           .join("\\|")}>`,
 });
@@ -84,27 +84,25 @@ const templateObject = templateCreator`## ${({ context }) =>
 
   return headerValue;
 }}
-  ${({ context, getType }) => generatePropsTable(context.props, getType)}
-  ${({ context }) =>
-    context.isMissingComposes
-      ? `*Some or all of the composed components are missing from the list below because a documentation couldn't be generated for them.
-  See the source code of the component for more information.*`
-      : ""}${({ context, getType }) =>
+${({ context, getType }) => generatePropsTable(context.props, getType)}
+${({ context }) =>
+  context.isMissingComposes
+    ? `*Some or all of the composed components are missing from the list below because a documentation couldn't be generated for them.
+See the source code of the component for more information.*`
+    : ""}${({ context, getType }) =>
   context.composes.length > 0
     ? `
-  
-  ${
-    context.componentName
-  } gets more \`propTypes\` from these composed components
-  ${context.composes
-    .map(
-      (component) =>
-        `#### ${component.componentName}
-  
-  ${generatePropsTable(component.props, getType)}`
-    )
-    .join(os.EOL + os.EOL)}`
+
+${context.componentName} gets more \`propTypes\` from these composed components
+${context.composes
+  .map(
+    (component) =>
+      `#### ${component.componentName}
+
+${generatePropsTable(component.props, getType)}`
+  )
+  .join(os.EOL + os.EOL)}`
     : ""}
-  `;
+`;
 
 export default templateObject;

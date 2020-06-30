@@ -2,19 +2,17 @@
  * @Author: 刘伟
  * @Date: 2020-06-13 13:44:02
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-26 19:06:41
+ * @LastEditTime: 2020-06-28 13:36:05
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/runners/abstract.runner.ts
  */
 import { ChildProcess, spawn, SpawnOptions } from "child_process";
 import { resolve } from "dns";
 import { rejects } from "assert";
-
 export class AbstractRunner {
   constructor(protected binary: string) {}
 
   private transformCommandMessage(message: string) {
-    console.log("message", message);
     return message.replace(/\r\n|\n/, "");
   }
 

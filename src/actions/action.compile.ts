@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:44:34
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-26 20:09:49
+ * @LastEditTime: 2020-06-27 16:52:09
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/actions/action.compile.ts
  */
@@ -13,7 +13,7 @@ import { Input } from "../commands";
 import { CompilersFactory, Compiler } from "../common/compilers";
 import { RunnersOption } from "../common/runners";
 import message from "../common/ui/message";
-import { ConfigFile } from "../common/interface";
+import { ConfigFile } from "../common/options/interface";
 
 export class CompileAction extends AbstractAction {
   public async handle(inputs: Input[], options: Input[]) {

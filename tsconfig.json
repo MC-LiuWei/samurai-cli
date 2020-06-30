@@ -12,5 +12,10 @@
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
   "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "src/**/*.json", "src/**/*.gitignore"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.json",
+    "src/**/*.gitignore",
+    "src/common/compilers/transverter/components/template/react/componentTsToMd.js"
+  ]
 }
