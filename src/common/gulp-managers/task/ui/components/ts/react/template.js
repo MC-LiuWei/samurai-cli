@@ -1,10 +1,10 @@
 /*
  * @Author: 刘伟
- * @Date: 2020-06-27 16:05:58
+ * @Date: 2020-07-05 02:48:38
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-27 16:06:08
+ * @LastEditTime: 2020-07-05 02:48:38
  * @Description: Do not edit
- * @FilePath: /samurai-cli/src/common/compilers/transverter/components/template/react/componentsMdTemplate.js
+ * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/components/ts/react/template.js
  */
 const os = require("os");
 const { template, type } = require("react-docgen-renderer-template");

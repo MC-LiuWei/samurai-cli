@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-17 19:44:34
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-27 16:52:09
+ * @LastEditTime: 2020-07-05 00:53:09
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/actions/action.compile.ts
  */
@@ -10,7 +10,7 @@ import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { AbstractAction } from ".";
 import { Input } from "../commands";
-import { CompilersFactory, Compiler } from "../common/compilers";
+import { GulpManagerFactory, Gulp } from "../common/gulp-managers";
 import { RunnersOption } from "../common/runners";
 import message from "../common/ui/message";
 import { ConfigFile } from "../common/options/interface";
@@ -26,7 +26,7 @@ async function compilePackageFiles(inputs: Input[]) {
   const options = mapRunnersOption(inputs).concat(
     mapConfigRunnerOptions(config)
   );
-  const compiler = CompilersFactory.create(config.schematic);
+  const compiler = GulpManagerFactory.create(config.schematic);
   compiler?.execute(options);
 }
 

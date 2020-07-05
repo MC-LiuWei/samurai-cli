@@ -2,12 +2,32 @@
  * @Author: 刘伟
  * @Date: 2020-06-12 23:30:21
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-06-28 13:01:48
+ * @LastEditTime: 2020-07-04 19:12:39
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/ui/message.ts
  */
 import { redBright, yellow, greenBright } from "chalk";
 import EMOJI from "./emoji";
+
+export enum MessageType {
+  ERROR = "ERROR",
+  SUCCESS = "SUCCESS",
+}
+
+export function statusMessage(type: MessageType, message: string) {
+  switch (type) {
+    case MessageType.SUCCESS:
+      return `${EMOJI.WHITE_CHECK_MARK} ${greenBright(`${message}`)}`;
+      break;
+    case MessageType.ERROR:
+      return `${EMOJI.RED_CIRCLE} ${redBright(`${message}`)}`;
+      break;
+    default:
+      return `[INFO] ${message}`;
+      break;
+  }
+  return `[${type}] ${message}`;
+}
 
 export default {
   packageVersionError: (version: string) => {
