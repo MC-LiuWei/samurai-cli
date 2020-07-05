@@ -2,5 +2,5 @@ node_modules
 tsconfig.json
 azure-pipelines.yml
 .npmrc
-ci
+azure-pipelines
 src
