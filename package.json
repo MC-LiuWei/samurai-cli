@@ -1,6 +1,6 @@
 {
   "name": "samurai-cli",
-  "version": "2.1.25",
+  "version": "2.1.24",
   "description": "Web application build scripts",
   "main": "./lib/index.js",
   "bin": {
@@ -9,7 +9,9 @@
   "scripts": {
     "prebuild": "npm run del",
     "build": "tsc",
-    "del": "del lib"
+    "postbuild": "npm run pkg:check-version",
+    "del": "del lib",
+    "pkg:check-version": "node ./lib/bin/samurai-cli.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,9 @@
     "lib",
     "README.md",
     "LICENSE"
+  ],
+  "pre-push": [
+    "build"
   ],
   "homepage": "https://github.com/MC-LiuWei/samurai-cli#readme",
   "dependencies": {
@@ -78,6 +83,7 @@
     "@types/node": "^13.7.0",
     "del-cli": "^3.0.0",
     "pre-commit": "^1.2.2",
+    "pre-push": "^0.1.1",
     "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   }
