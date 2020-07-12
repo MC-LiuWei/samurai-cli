@@ -2,8 +2,8 @@
  * @Author: 刘伟
  * @Date: 2020-07-04 18:26:27
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-07-05 03:31:10
- * @Description: Do not edit
+ * @LastEditTime: 2020-07-13 06:46:47
+ * @Description: ui组件库的编译过程
  * @FilePath: /samurai-cli/src/common/gulp-managers/ui.gulp-manager.ts
  */
 import { AbstractGulpManager } from ".";
@@ -27,6 +27,15 @@ export class UiGulpManager extends AbstractGulpManager {
     return [...targetPath].filter((target) => sourceSet.has(target));
   }
 
+  /**
+   * @description 在文档中查找编译配置文件
+   * @author liu wei
+   * @date 2020-07-13
+   * @private
+   * @param {string[]} filenames // 当前项目根目录下的目录结构
+   * @returns {ICompilerConfig}
+   * @memberof UiGulpManager
+   */
   private findCompilerConfig(filenames: string[]): ICompilerConfig {
     const _filenames = filenames.map((filename) =>
         join(process.cwd(), filename)
@@ -49,8 +58,18 @@ export class UiGulpManager extends AbstractGulpManager {
     return JSON.parse(jsonCode);
   }
 
+  /**
+   * @description 增强配置项，向基础配置中加入ui组件文档编译的特定配置
+   * @author liu wei
+   * @date 2020-07-13
+   * @private
+   * @param {RunnersOption[]} options
+   * @returns
+   * @memberof UiGulpManager
+   */
   private enhanceRunnersOptions(options: RunnersOption[]) {
     const gulpfile = join(__dirname, "gulpfile.js");
+    // 找到的编译文件地址，有多个或者没有找到的时候中断cli
     const compilerConfig = this.findCompilerConfig([
       ".compiler",
       "compiler.json",
@@ -65,7 +84,6 @@ export class UiGulpManager extends AbstractGulpManager {
   public async execute(options: RunnersOption[]) {
     const loading = runnerLoading("组件文档编译");
     const enhanceRunnersOptions = this.enhanceRunnersOptions(options);
-    console.log(enhanceRunnersOptions);
     loading.start();
     const message = await super.execute(enhanceRunnersOptions);
     loading.stop();

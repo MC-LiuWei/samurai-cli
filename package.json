@@ -9,7 +9,6 @@
   "scripts": {
     "prebuild": "npm run del",
     "build": "tsc",
-    "postbuild": "npm run pkg:check-version",
     "del": "del lib",
     "pkg:check-version": "node ./lib/bin/samurai-cli.js"
   },

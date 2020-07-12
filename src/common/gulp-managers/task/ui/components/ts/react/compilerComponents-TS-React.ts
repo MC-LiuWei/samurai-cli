@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-07-04 18:52:27
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-07-05 09:24:50
+ * @LastEditTime: 2020-07-13 07:07:13
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/components/ts/react/compilerComponents-TS-React.ts
  */
@@ -69,12 +69,12 @@ export function comComTsReact(options: ICmdUiOptions) {
             ext = clone.extname,
             filename = basename(clone.path).replace(ext, "");
           const fileCode = clone.contents.toString();
-          const context = { a: 1 };
+          const context = {};
           createContext(context);
           runInContext(fileCode, context);
           clone.extname = ".api";
           clone.contents = Buffer.from(
-            `var ${filename} = ${JSON.stringify(context)}`
+            `${filename} = ${JSON.stringify(context)}`
           );
           this.push(clone);
           callback();
@@ -117,12 +117,20 @@ export function comComTsReact(options: ICmdUiOptions) {
         })
       )
       .pipe(dest(join(tempPath, components, dirName)));
+
     return merge([apiStreams, demoStreams])
       .pipe(
         src([
           join(tempPath, components, dirName, "**/*.api"),
           join(tempPath, components, dirName, "**/*.demo"),
         ])
+      )
+      .pipe(
+        obj(function (file, _, callback) {
+          const clone = file.clone();
+          this.push(clone);
+          callback();
+        })
       )
       .pipe(concat("data.data"))
       .pipe(
@@ -155,5 +163,7 @@ export function comComTsReact(options: ICmdUiOptions) {
         );
       });
   });
-  return merge.apply(null, streams);
+  return merge.apply(null, streams).on("finish", () => {
+    console.log("finish");
+  });
 }

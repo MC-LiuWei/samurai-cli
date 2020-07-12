@@ -2,12 +2,12 @@
  * @Author: 刘伟
  * @Date: 2020-07-04 18:40:47
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-07-05 01:02:17
+ * @LastEditTime: 2020-07-13 07:24:59
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/ui-task.factory.ts
  */
 import { ParsedArgs } from "minimist";
-import { comComTsReact } from "./components";
+import { comComTsReact, conComMainTsReact, conComRouterTsReact } from "./components";
 import { Language, Library } from ".";
 import { ICmdUiOptions } from "../../gulps";
 
@@ -32,3 +32,5 @@ export function UiTaskMain(args: ICmdUiOptions) {
       break;
   }
 }
+
+export function UITask
