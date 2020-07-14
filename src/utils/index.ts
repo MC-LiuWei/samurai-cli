@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-06-27 17:25:01
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-07-05 09:20:14
+ * @LastEditTime: 2020-07-14 22:45:08
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/utils/index.ts
  */
@@ -39,7 +39,6 @@ export function findTempDirectory(rootPath = process.cwd(), path: string) {
   const options = ["node_modules", "samurai-cli"];
   const currentPath = join(rootPath, ...options),
     tempPath = join(currentPath, path);
-  console.log(currentPath);
   if (!existsSync(currentPath)) {
     mkdirSync(currentPath);
   }

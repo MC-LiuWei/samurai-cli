@@ -2,7 +2,7 @@
  * @Author: 刘伟
  * @Date: 2020-07-04 18:52:27
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-07-13 07:07:13
+ * @LastEditTime: 2020-07-14 23:19:50
  * @Description: Do not edit
  * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/components/ts/react/compilerComponents-TS-React.ts
  */
@@ -24,6 +24,7 @@ import {
   findTempDirectory,
 } from "../../../../../../../utils";
 import templateObject from "./template";
+import { create } from "domain";
 
 const render = new ReactToMd({
   template: templateObject,
@@ -163,7 +164,5 @@ export function comComTsReact(options: ICmdUiOptions) {
         );
       });
   });
-  return merge.apply(null, streams).on("finish", () => {
-    console.log("finish");
-  });
+  return merge.apply(null, streams);
 }
