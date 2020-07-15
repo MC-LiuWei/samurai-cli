@@ -19,10 +19,8 @@ import * as reactDoc from "react-docgen";
 import ReactDocGenMarkdownRenderer from "react-docgen-markdown-renderer";
 import MT from "mark-twain";
 import { join, extname, basename } from "path";
-import {
-  conComMainTsReact,
-  comComTsReact,
-} from "./task/ui/components/ts/react";
+import { comComTsReact } from "./task/ui/components/ts/react";
+import { conDocsTs } from "./task/ui/docs/ts";
 import { ICmdUiOptions } from ".";
 const renderer = new ReactDocGenMarkdownRenderer();
 
@@ -66,7 +64,7 @@ gulp.task("ui:compiler-components", (cb) => {
   });
   cb();
 });
-gulp.task("ui:compiler-componentsMain", (cb) => {
+gulp.task("ui:compiler-docs", (cb) => {
   const {
     rootPath,
     components,
@@ -78,7 +76,7 @@ gulp.task("ui:compiler-componentsMain", (cb) => {
     library,
     temp,
   } = minimist(process.argv.slice(2), cmdUiOptions);
-  conComMainTsReact({
+  conDocsTs({
     rootPath,
     components,
     docs,
@@ -92,7 +90,4 @@ gulp.task("ui:compiler-componentsMain", (cb) => {
   cb();
 });
 
-gulp.task(
-  "ui",
-  gulp.series(["ui:compiler-components", "ui:compiler-componentsMain"])
-);
+gulp.task("ui", gulp.series(["ui:compiler-components", "ui:compiler-docs"]));

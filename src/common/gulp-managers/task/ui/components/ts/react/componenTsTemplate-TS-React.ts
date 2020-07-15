@@ -8,15 +8,13 @@
  */
 export const comMainTemplateTsReact = `import React, { Component } from 'react';
 import JsonmlToReactElement from 'jsonml-to-react-element';
-import data from '{{data}}';
+import connect from '{{ connect }}'
+import data from './{{data}}';
 
+const WarpComponents = connect("components",data);
 export default class {{name}} extends Component {
     render() {
-        return (
-            <div>
-
-            </div>
-        );
+        return <WarpComponents {...this.props} />;
     }
 }
 `;

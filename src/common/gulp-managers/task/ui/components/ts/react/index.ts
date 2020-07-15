@@ -7,4 +7,3 @@
  * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/components/ts/react/index.ts
  */
 export * from "./compilerComponents-TS-React";
-export * from "./main-TS-React";

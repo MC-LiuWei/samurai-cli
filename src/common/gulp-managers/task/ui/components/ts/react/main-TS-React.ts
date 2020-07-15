@@ -44,6 +44,7 @@ export function conComMainTsReact(options: ICmdUiOptions) {
           const code = renderString(comMainTemplateTsReact, {
             data: `./${filename}`,
             name: dirName,
+            connect: "cs",
           });
           clone.contents = Buffer.from(code);
           this.push(clone);
