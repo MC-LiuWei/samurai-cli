@@ -2,9 +2,9 @@
  * @Author: 刘伟
  * @Date: 2020-07-04 18:52:27
  * @LastEditors: 刘伟
- * @LastEditTime: 2020-07-14 23:19:50
+ * @LastEditTime: 2020-07-15 22:05:20
  * @Description: Do not edit
- * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/components/ts/react/compilerComponents-TS-React.ts
+ * @FilePath: /samurai-cli/src/common/gulp-managers/task/ui/components/ts/react/compilerTsComponents.ts
  */
 import del from "del";
 import merge from "gulp-merge";
@@ -13,13 +13,14 @@ import rename from "gulp-rename";
 import * as ReactDocs from "react-docgen";
 import ReactToMd from "react-docgen-markdown-renderer";
 import MT from "mark-twain";
+import { uniq } from "lodash";
 import { join, basename } from "path";
 import { src, dest } from "gulp";
 import { obj } from "through2";
 import { Buffer } from "buffer";
 import { createContext, runInContext } from "vm";
 import { renderString } from "nunjucks";
-import { comMainTemplateTsReact } from "./componenTsTemplate-TS-React";
+import { comMainTemplateTsReact } from "./componenTsTemplate";
 import { ICmdUiOptions } from "../../../../../gulps";
 import {
   findDirectory,
@@ -46,7 +47,6 @@ export function comComTsReact(options: ICmdUiOptions) {
   const componentsPath = join(rootPath, components),
     tempPath = findTempDirectory(rootPath, temp);
   const dirs = findDirectory(componentsPath, Directory.DIRECTORY);
-  del([join(tempPath, components)]);
 
   const streams = dirs.map((dir) => {
     const dirName = basename(dir);
@@ -193,10 +193,7 @@ export function comComTsReact(options: ICmdUiOptions) {
         const clone = file.clone(),
           filename = basename(file.path),
           name = basename(file.path.replace(filename, ""));
-        clone.contents = Buffer.from(`{
-          path: "${name}",
-          components: ${ClassName(name)}
-        },`);
+        clone.contents = Buffer.from(`"${name}",`);
         this.push(clone);
         callback();
       })
@@ -205,19 +202,24 @@ export function comComTsReact(options: ICmdUiOptions) {
     .pipe(
       obj(function (file, _, callback) {
         const clone = file.clone();
-        const code = clone.contents.toString(),
-          tempCode = code
-            .split(",")
-            .filter((a: string) => !!a)
-            .join();
-        console.log(tempCode);
-        const importCode = tempCode.reduce((a: string, b: any) => {
-          const com = JSON.parse(b);
-          a += `import ${ClassName(com.path)} from "${com.path}";\n`;
+        const code = clone.contents.toString();
+        const tempCode = `[${code
+          .split(",")
+          .filter((a: string) => !!a)
+          .join()}]`;
+        const componentsArr = uniq<string>(JSON.parse(tempCode));
+        const exportCode = `[${componentsArr
+          .map(
+            (item: string) =>
+              `{path: "${item}", Components: ${ClassName(item)}}`
+          )
+          .join()}]`;
+        const importCode = componentsArr.reduce((a: string, b: any) => {
+          a += `import ${ClassName(b)} from "./${b}";\n`;
           return a;
         }, "");
         clone.contents = Buffer.from(
-          `${importCode} export default ${tempCode}`
+          `${importCode}export default { path: "components", children: ${exportCode} }`
         );
         this.push(clone);
         callback();
