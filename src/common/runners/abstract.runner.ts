@@ -7,10 +7,8 @@
  * @FilePath: /samurai-cli/src/common/runners/abstract.runner.ts
  */
 import { ChildProcess, spawn, SpawnOptions } from "child_process";
-import { resolve } from "dns";
-import { rejects } from "assert";
 export class AbstractRunner {
-  constructor(protected binary: string) {}
+  constructor(protected binary: string) { }
 
   private transformCommandMessage(message: string) {
     return message.replace(/\r\n|\n/, "");
